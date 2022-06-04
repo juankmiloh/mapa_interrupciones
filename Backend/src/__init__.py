@@ -30,8 +30,8 @@ def create_app():
 
     config_name = os.environ.get('FLASK_ENV', 'production')
     app = Flask(__name__,
-                static_folder="../front",
-                template_folder="../front"
+                static_folder="../front/dist/static",
+                template_folder="../front/dist"
                 )
     app.config.from_object('config_' + config_name)
 
@@ -44,7 +44,8 @@ def create_app():
     app.register_blueprint(controller_blueprint)
 
     if app.config.get("ENV") == 'development' or app.config.get("ENV") == 'production':
-        CORS(app, resources={r"*": {"origins": "*", "supports_credentials": True}})
+        CORS(app, resources={
+             r"*": {"origins": "*", "supports_credentials": True}})
 
     FlaskInjector(app=app, injector=injector)
 
