@@ -96,12 +96,16 @@ export class MapInterrupcionComponent implements OnInit, OnDestroy {
     // VAlidar conexion SUI
     this.validateConnectionSUI();
     await this.verifyConnectionSUI().then((data: any) => {
-      // console.log('estado servidor: ', data);
+      console.log('Estado inicial servidor >> ', data);
       if (data.status !== undefined) {
         this.observer.setShowAlertErrorSUI(data.status);
       }
     });
 
+    this.initOptionsMap()
+  }
+
+  async initOptionsMap() {
     // Initialize MapView and return an instance of MapView
     const fecha = new Date();
     const anoActual = fecha.getFullYear();
@@ -136,8 +140,8 @@ export class MapInterrupcionComponent implements OnInit, OnDestroy {
 
   // observable para validar si hay error en la conexion con la BD SUI
   validateConnectionSUI() {
-    this.observer.getShowAlertErrorSUI().subscribe((status) => {
-      console.log('status servidor: ', status);
+    this.observer.getShowAlertErrorSUI().subscribe(async(status) => {
+      console.log('status servidor >> ', status);
       // Si no hay conexion con el servidor
       if (status === 0) {
         this.alertSwal.swalOptions = {
@@ -160,22 +164,12 @@ export class MapInterrupcionComponent implements OnInit, OnDestroy {
 
       // Error interno del servidor
       if (status === 500) {
-        this.alertSwal.swalOptions = {
-          title: 'Info',
-          text: 'Se ha perdido la conexión con el servidor',
-          icon: 'info',
-          confirmButtonText: 'Recargar Página',
-          confirmButtonColor: '#ffa726',
-          allowOutsideClick: false,
-        };
-
-        if (!this.alertSwal.swalVisible) { // si el modal no esta abierto
-          this.alertSwal.fire().then((data) => {
-            if (data.value) {
-              window.location.reload();
-            }
-          });
-        }
+        await this.verifyConnectionSUI().then((data: any) => {
+          // console.log('estado servidor: ', data);
+          if (data.status !== undefined) {
+            this.observer.setShowAlertErrorSUI(data.status);
+          }
+        });
       }
     });
   }
