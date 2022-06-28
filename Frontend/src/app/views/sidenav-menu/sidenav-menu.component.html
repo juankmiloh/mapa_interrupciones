@@ -69,8 +69,19 @@
             <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.open()">
 				<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button> -->
-            <span style="padding-left: 1%;">{{ opcion }}</span>
             <!-- <p>Closed due to: {{reason}}</p> -->
+            <span style="padding-left: 1%;" [ngStyle]="x.matches ? {'font-size': 'x-small'} : {'font-size': ''}">{{ opcion }}</span>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-9" style="border: 0px solid red;">
+                        <span></span>
+                    </div>
+                    <div class="col-sm-12 col-md-3" style="border: 0px solid red; text-align: right;" [ngStyle]="x.matches ? {'font-size': 'x-small'} : {'font-size': ''}">
+                        <span style="color: #FFEE58;">Cantidad de visitas: </span>
+                        <span>{{ countVisitas }}</span>
+                    </div>
+                </div>
+            </div>
         </mat-toolbar>
         <!-- Add Content Here -->
         <router-outlet></router-outlet>

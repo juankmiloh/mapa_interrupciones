@@ -34,6 +34,7 @@ export class MapInterrupcionComponent implements OnInit, OnDestroy {
   @ViewChild('alertSwal', { static: true }) private alertSwal: SwalComponent;
   public view: any;
 
+  x: MediaQueryList;
   serverUrl = environment.serverUrl;
   public suiAnios: any[] = [];
   public suiCausas: any[] = [];
@@ -93,6 +94,7 @@ export class MapInterrupcionComponent implements OnInit, OnDestroy {
   AlertErrorSUI: number;
 
   async ngOnInit() {
+    this.x = window.matchMedia('(max-width: 800px)'); // Si hace match con dispositivos móviles
     // VAlidar conexion SUI
     this.validateConnectionSUI();
     await this.verifyConnectionSUI().then((data: any) => {
@@ -121,7 +123,7 @@ export class MapInterrupcionComponent implements OnInit, OnDestroy {
       causa: 0,
       colSui: 'Todas',
       nombCausa: 'Todas',
-      zoom: 5,
+      zoom: this.x.matches ? 4 : 5,
       latitud: 5.5,
       longitud: -71.47106040285713,
     };

@@ -9,4 +9,5 @@ front_controller, \
 anios_controller, \
 causas_controller, \
 empresas_controller, \
-interrupciones_controller
+interrupciones_controller, \
+visitas_controller
