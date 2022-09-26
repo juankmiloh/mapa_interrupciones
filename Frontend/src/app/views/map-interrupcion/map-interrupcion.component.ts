@@ -504,7 +504,7 @@ export class MapInterrupcionComponent implements OnInit, OnDestroy {
       const layer = new CSVLayer({
         url: urlOptions,
         title: `Interrupciones ${options.colSui} ${this.meses[options.mes]} de ${options.ano}`,
-        copyright: 'DESARROLLADO POR JUAN CAMILO HERRERA - SDEGC',
+        copyright: 'DESARROLLADO - SUPERSERVICIOS',
         popupTemplate: template,
         renderer,
       });
